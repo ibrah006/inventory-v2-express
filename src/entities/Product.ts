@@ -7,6 +7,7 @@ import { BuyingUnits } from './BuyingUnits';
 import { SellingUnits } from './SelingUnits';
 import { AppDataSource } from '../data-source';
 import { InvoiceItem } from './InvoiceItem';
+import { Account } from './Account';
 
 interface ProductInterface {
   id: string;
@@ -106,6 +107,21 @@ export class Product {
 
   @ManyToOne(()=> PricingList, (pricingList)=> pricingList.products)
   pricingList!: PricingList;
+
+  // Accounts
+
+  @ManyToOne(()=> Account, (account)=> account)
+  asset?: Account;
+
+  @ManyToOne(()=> Account, (account)=> account)
+  revenue?: Account;
+
+  @ManyToOne(()=> Account, (account)=> account)
+  cogs?: Account;
+
+  @ManyToOne(()=> Account, (account)=> account)
+  variance?: Account;
+
 
   toJson() {
     return new ProductJson({
