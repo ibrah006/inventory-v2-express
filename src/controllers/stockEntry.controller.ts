@@ -50,14 +50,9 @@ export default {
                 entryType: isStockIn? EntryType.DEBIT : EntryType.CREDIT
             }));
 
-            // Add Journal entry for debiting/crediting Revenue account
-            product.revenue?.entries.push(journalEntryRepo.create({
-                account: product.revenue,
-                amount: amount,
-                entryType: isStockIn? EntryType.CREDIT : EntryType.DEBIT
-            }));
+            // TODO: double entry system incomplete
 
-            // Add Journal entry for debiting COGS account, if Stock entry is cash out (Stock in)
+            // Add Journal entries for debiting COGS and Revenue account, if Stock entry is cash out (Stock in)
             if (!isStockIn) {
                 // input for: Selling or Buying
                 // get average cost of materials (won't be needed in most cases)
@@ -68,6 +63,13 @@ export default {
                 product.cogs?.entries.push(journalEntryRepo.create({
                     account: product.cogs,
                     amount: materialCost,
+                    entryType: EntryType.DEBIT
+                }));
+
+                 // Add Journal entry for debiting/crediting Revenue account
+                product.revenue?.entries.push(journalEntryRepo.create({
+                    account: product.revenue,
+                    amount: amount,
                     entryType: EntryType.DEBIT
                 }));
             }
