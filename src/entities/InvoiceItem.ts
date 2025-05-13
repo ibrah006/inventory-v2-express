@@ -1,6 +1,8 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Product } from "./Product";
 import { Invoice } from "./Invoice";
+import { StockEntry } from "./StockEntry";
+import { Material } from "./Material";
 
 
 @Entity()
@@ -44,5 +46,8 @@ export class InvoiceItem {
     }
   )
   amount!: number;
+
+  @OneToMany(()=> Material, (material)=> material.invoiceItem)
+  materials!: Material[];
 
 }

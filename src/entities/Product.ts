@@ -8,6 +8,8 @@ import { SellingUnits } from './SelingUnits';
 import { AppDataSource } from '../data-source';
 import { InvoiceItem } from './InvoiceItem';
 import { Account } from './Account';
+import { StockEntry } from './StockEntry';
+import { Material } from './Material';
 
 interface ProductInterface {
   id: string;
@@ -138,5 +140,7 @@ export class Product {
       sellingUnits: undefined
     });
   }
+
+  // other relations
 }
 

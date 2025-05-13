@@ -3,9 +3,11 @@ import {
     PrimaryGeneratedColumn,
     Column,
     ManyToOne,
-    CreateDateColumn
+    CreateDateColumn,
+    OneToMany
   } from "typeorm";
   import { Account } from "./Account";
+import { StockEntry } from "./StockEntry";
   
   export enum EntryType {
     DEBIT = "Debit",
@@ -34,5 +36,8 @@ import {
   
     @CreateDateColumn()
     date!: Date;
+
+    @OneToMany(()=> StockEntry, (entry)=> entry.journalEntry)
+    stockEntries!: StockEntry[];
   }
   
