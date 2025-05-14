@@ -1,26 +1,17 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Entity, Column, OneToMany, PrimaryColumn } from "typeorm";
 import { JournalEntry } from "./JournalEntry";
 
-export enum AccountType {
-  ASSET = "Asset",
-  REVENUE = "Revenue",
-  COGS = "COGS",
-  VARIANCE = "Variance"
-}
 
 @Entity()
 export class Account {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   id!: number;
 
   @Column()
   name!: string;
 
-  @Column({
-    type: "enum",
-    enum: AccountType
-  })
-  type!: AccountType;
+  @Column()
+  type!: 'ASSET' | 'REVENUE' | 'COGS' | 'VARIANCE' | 'EXPENSE' | 'CASH';
 
   @OneToMany(() => JournalEntry, (entry) => entry.account)
   entries!: JournalEntry[];

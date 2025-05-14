@@ -10,6 +10,8 @@ import { InvoiceItem } from './InvoiceItem';
 import { Account } from './Account';
 import { StockEntry } from './StockEntry';
 import { Material } from './Material';
+import { Category } from './Category';
+import { deprecate } from 'util';
 
 interface ProductInterface {
   id: string;
@@ -64,6 +66,9 @@ export class Product {
   @PrimaryGeneratedColumn()
   barcode!: number;
 
+  /**
+ * @deprecated Use `ExpenseCategory` instead.
+ */
   @Column({ nullable: true })
   category?: string;
 
@@ -124,6 +129,9 @@ export class Product {
   @ManyToOne(()=> Account, (account)=> account)
   variance?: Account;
 
+  // Category
+  @ManyToOne(()=> Category, (category)=> category.products)
+  expenseCategory?: Category;
 
   toJson() {
     return new ProductJson({
